@@ -1,3 +1,7 @@
+src/interpreter/piet.hpp
+
+nop1x1
+
 # Compiled Object files
 *.slo
 *.lo
