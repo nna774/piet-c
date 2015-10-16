@@ -1,7 +1,7 @@
 all:
 
 CXX = g++ 
-CXXFLAGS = -Wall -Wextra -Weffc++ -I src/interpreter/
+CXXFLAGS = -std=c++11 -Wall -Wextra -Weffc++ -I src/interpreter/
 
 INTERPRETER = src/interpreter/color.hpp src/interpreter/main.cpp
 PIET = src/interpreter/piet.hpp

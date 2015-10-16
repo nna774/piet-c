@@ -27,5 +27,4 @@ enum Color {
   DMagenta,
 };
 
-
 #endif
