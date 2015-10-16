@@ -15,7 +15,7 @@ struct Diff {
   int hue;
   static Diff colorDiff(Color src, Color dst) {
     if (src == Black || src == White || dst == Black || dst == White) return { -1, -1};
-    return {(dst - src)/6, (dst - src)%6};
+    return {((dst - src)/6 + 3)%3, ((dst - src)%6 + 6)%6};
   }
 };
 
@@ -67,6 +67,30 @@ enum class Op {
   OutC,
 };
 
+char const* show(Op op) {
+  switch (op) {
+  default:
+  case Op::Nop: return "Nop";
+  case Op::Push: return "Push";
+  case Op::Pop: return "Pop";
+  case Op::Add: return "Add";
+  case Op::Sub: return "Sub";
+  case Op::Mul: return "Mul";
+  case Op::Div: return "Div";
+  case Op::Mod: return "Mod";
+  case Op::Not: return "Not";
+  case Op::Greater: return "Greater";
+  case Op::Pointer: return "Pointer";
+  case Op::Switch: return "Switch";
+  case Op::Dup: return "Dup";
+  case Op::Roll: return "Roll";
+  case Op::InN: return "InN";
+  case Op::InC: return "InC";
+  case Op::OutN: return "OutN";
+  case Op::OutC: return "OutC";
+  }
+}
+
 bool outside(Piet piet, Point point) {
   return (0 > point.x ||
           0 > point.y ||
@@ -88,6 +112,8 @@ int mod(int n, int m) {
 Op detectCmd(Color current, Color next) {
   if (current == White || next == White) return Op::Nop;
   Diff d = Diff::colorDiff(current, next);
+
+  // std::cout << "hue: " << d.hue << ", lightness: " << d.lightness << std::endl;
 
   switch (d.hue) {
   case 0:
@@ -133,6 +159,9 @@ void execCmd(Env& env, Color current, Color next) {
       env.stack.push(biop(x2, x1));
     }
   };
+
+  std::cout << show(op) << std::endl;
+
   switch (op) {
   default:
   case Op::Nop:
