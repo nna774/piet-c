@@ -15,7 +15,7 @@ struct Diff {
   int hue;
   static Diff colorDiff(Color src, Color dst) {
     if (src == Black || src == White || dst == Black || dst == White) return { -1, -1};
-    return {((dst - src)/6 + 3)%3, ((dst - src)%6 + 6)%6};
+    return {(dst/6 - src/6 + 3)%3, ((dst - src)%6 + 6)%6};
   }
 };
 

@@ -2,9 +2,6 @@
 #define COLOR_H
 
 enum Color {
-  Black,
-  White,
-
   LRed,
   LYellow,
   LGreen,
@@ -25,6 +22,9 @@ enum Color {
   DCyan,
   DBlue,
   DMagenta,
+
+  Black,
+  White,
 };
 
 #endif
