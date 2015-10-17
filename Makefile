@@ -1,6 +1,6 @@
 all:
 
-CXX = g++ 
+CXX ?= g++ 
 CXXFLAGS = -Wall -Wextra -Weffc++ -I src/interpreter/
 
 INTERPRETER = src/interpreter/color.hpp src/interpreter/main.cpp
