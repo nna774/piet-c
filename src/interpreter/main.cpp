@@ -33,6 +33,7 @@ struct Piet {
   size_t width;
   size_t height;
   Color at(Point p) {
+    // std::cout << "x: " << p.x << ", y: " << p.y << std::endl;
     return piet[p.y * width + p.x];
   }
 };
@@ -286,15 +287,29 @@ std::tuple<Point, int> findNextCodelImp(Env const& env, Piet piet) {
     done.push_back(p);
     if(piet.at(p) != color) continue;
     same.push_back(p);
-    Point newp;
-    if (p.x != 0) { newp = {p.x - 1, p.y}; }
-    if (p.y != 0) { newp = {p.x, p.y - 1}; }
-    if (static_cast<unsigned>(p.x) != width - 1) { newp = {p.x + 1, p.y}; }
-    if (static_cast<unsigned>(p.y) != height - 1) { newp = {p.x, p.y + 1}; }
-    if (std::find(begin(done), end(done), newp) == end(done)) {
-      if (std::find(begin(que), end(que), newp) == end(que)) {
-        que.push_back(newp);
+    Point newp{-1, -1};
+    auto adder = [&](Point po) {
+      if (std::find(begin(done), end(done), po) == end(done)) {
+        if (std::find(begin(que), end(que), po) == end(que)) {
+          que.push_back(po);
+        }
       }
+    };
+    if (p.x != 0) {
+      newp = {p.x - 1, p.y};
+      adder(newp);
+    }
+    if (p.y != 0) {
+      newp = {p.x, p.y - 1};
+      adder(newp);
+    }
+    if (static_cast<unsigned>(p.x) != width - 1) {
+      newp = {p.x + 1, p.y};
+      adder(newp);
+    }
+    if (static_cast<unsigned>(p.y) != height - 1) {
+      newp = {p.x, p.y + 1};
+      adder(newp);
     }
   }
   int area = same.size();
