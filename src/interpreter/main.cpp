@@ -161,7 +161,7 @@ void execCmd(Env& env, Color current, Color next) {
     }
   };
 
-  std::cout << show(op) << std::endl;
+  // std::cout << show(op) << std::endl;
 
   switch (op) {
   default:
@@ -312,6 +312,9 @@ std::tuple<Point, int> findNextCodelImp(Env const& env, Piet piet) {
       adder(newp);
     }
   }
+  // for (auto e: same) {
+  //   std::cout << "(x, y) = (" << e.x << ", " << e.y << ")" << std::endl;
+  // }
   int area = same.size();
   Point next;
   int max = -1;
@@ -395,8 +398,9 @@ std::tuple<Point, int, bool> findNextCodel(Env const& env, Piet piet) {
     return std::make_tuple(p, std::get<1>(point), false);
   }
 
-  Color color = piet.at(std::get<0>(point));
+  Color color = piet.at(p);
   bool exec = true;
+  // std::cout << "color: " << color << ", exec: " << exec << ", (x, y) = (" << p.x << ", " << p.y << ")" << std::endl;
   if (color == White) {
     exec = false;
     while (!outside(piet, p) && piet.at(p) == White) {
