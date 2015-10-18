@@ -380,7 +380,7 @@ std::tuple<Point, int> findNextCodelImp(Env const& env, Piet piet) {
     } else {
       next = same[0];
     }
-    next.x -= 1;
+    next.y -= 1;
   }
   break;
 }
