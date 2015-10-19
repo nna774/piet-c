@@ -1,3 +1,8 @@
+// Copyright 2015 NoNameA 774
+//
+// This file is released under the MIT License.
+// see http://opensource.org/licenses/mit-license.php
+
 #include <iostream>
 #include <stack>
 #include <deque>
