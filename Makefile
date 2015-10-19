@@ -1,26 +1,27 @@
 all:
 
 CXX ?= g++ 
-CXXFLAGS = -std=c++11 -Wall -Wextra -Weffc++ -I src/interpreter/ -O2
+CXXFLAGS ?= -std=c++11 -Wall -Wextra -Weffc++ -I src/interpreter/ -O2
 
 INTERPRETER = src/interpreter/color.hpp src/interpreter/main.cpp
 PIET = src/interpreter/piet.hpp
 
+TESTS = nop1x1.test div_by_2.test
+
+.SUFFIXES: .test
+
 RM = rm -f
 
-test: nop1x1 div_by_2
+test: $(TESTS) $(TESTS:.test=.test.sh)
 
-nop1x1: $(INTERPRETER) test/nop1x1.hpp
-	cp test/nop1x1.hpp $(PIET)
-	$(CXX) $(CXXFLAGS) src/interpreter/main.cpp -o nop1x1
-	[ -z `./nop1x1` ]
+%.test: tests/%.hpp $(INTERPRETER)
+	cp $< $(PIET)
+	$(CXX) $(CXXFLAGS) src/interpreter/main.cpp -o $@
 
-div_by_2: $(INTERPRETER) test/div_by_2.hpp
-	cp test/div_by_2.hpp $(PIET)
-	$(CXX) $(CXXFLAGS) src/interpreter/main.cpp -o div_by_2
-	[ `echo 42 | ./div_by_2` = "4221105210" ]
+%.test.sh: tests/%.test.sh
+	./tests/$@
 
 clean:
-	$(RM) $(PIET) nop1x1 div_by_2
+	$(RM) $(PIET) $(TESTS)
 
 .PHONY: test clean
