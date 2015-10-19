@@ -1,7 +1,7 @@
 src/interpreter/piet.hpp
 
-nop1x1
-div_by_2
+nop1x1.test
+div_by_2.test
 
 # Compiled Object files
 *.slo
